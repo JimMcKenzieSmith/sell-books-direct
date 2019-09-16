@@ -43,13 +43,6 @@ directory. The following virtual host configuration is recommended:
         </Directory>
     </VirtualHost>
 
-### QUESTIONS AND FEEDBACK
-
-If you find code in this release behaving in an unexpected manner or contrary to
-its documented behavior, please create an issue in the GitHub issue tracker at:
-
-https://github.com/BluePointWeb/sell-books-direct/issues
-
 ### LICENSE
 
 The files in this archive are Copyright (c) 2012 McKenzie Books, Inc. All rights
