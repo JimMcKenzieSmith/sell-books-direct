@@ -1,0 +1,12 @@
+<h3>Admin Users</h3>
+<h4>Viewing Admin User</h4>
+<dl class="dl-horizontal">
+  <dt>Company</dt>
+  <dd><?php echo $this->user->getName(); ?></dd>
+  <dt>Contact Name</dt>
+  <dd><?php echo $this->user->getContactName(); ?></dd>
+  <dt>Account Type</dt>
+  <dd><?php echo Application_Model_AdminUser::$types[$this->user->getType()]; ?></dd>
+  <dt>Contact Email</dt>
+  <dd><?php echo $this->user->getContactEmail(); ?></dd>
+</dl>

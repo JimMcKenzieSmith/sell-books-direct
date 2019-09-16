@@ -1,0 +1,10 @@
+<h2>Agree to Terms and Conditions</h2>
+<p class="lead">Please read through and accept the agreement below to continue.</p>
+<form method="post">
+Last updated: <?php echo $this->clickwrap->getDate()->toString(); ?>
+<textarea readonly="readonly" class="span12" rows="115">
+<?php echo $this->clickwrap->getAgreement(); ?>
+</textarea>
+<div class="control-group"><input type="checkbox" name="agree"> I agree to the terms and conditions</div>
+<button type="submit">Continue</button>
+</form>

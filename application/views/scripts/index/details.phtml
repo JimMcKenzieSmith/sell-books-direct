@@ -1,0 +1,13 @@
+<h3>My Details</h3>
+<p class="lead">You can update your account details below.</p>
+<?php $form = $this->form;
+/* @var $form Application_Form_Seller */
+?>
+<form method="post">
+    <legend>Seller Details</legend>
+    <p><small>All fields are required unless marked optional.</small></p>
+    <?php echo $form; ?>
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Save Details</button>
+    </div>
+</form>

@@ -1,0 +1,212 @@
+<h3>Purchase Orders</h3>
+<h4>List All</h4>
+<p class="lead">On this page you can view all PO's created for you.</p>
+<?php if ($this->user->getSellerStatus() == Application_Model_Seller::STATUS_ACTIVATED_MANUAL) { ?>
+<p><strong>Your account is set to Manual Approval&mdash;please wait for approval BEFORE shipping. Download/view our <a target="_blank" href="https://docs.google.com/document/d/1Bls00ovIGvPXaV7RTerRZ9va0LUFLJFEJm_gaBcCa_Y/edit?usp=sharing">freight collect shipping instructions</a>. And, download/view our <a target="_blank" href="https://docs.google.com/document/d/1wn4k9bbofd3ztTz3bZZv6ubRhya7zdhl74KYEXkeOHE/edit?usp=sharing">chargeback policies</a>.</strong></p>
+<?php } else { ?>
+<p><strong>Your account is set to Auto Approval&mdash;you can ship invoices immediately. Download/view our <a target="_blank" href="https://docs.google.com/document/d/1Bls00ovIGvPXaV7RTerRZ9va0LUFLJFEJm_gaBcCa_Y/edit?usp=sharing">freight collect shipping instructions</a>. And, download/view our <a target="_blank" href="https://docs.google.com/document/d/1wn4k9bbofd3ztTz3bZZv6ubRhya7zdhl74KYEXkeOHE/edit?usp=sharing">chargeback policies</a>.</strong></p>
+<?php } ?>
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" href="#invoices-pendingApproval">
+        Pending Approval (<?php echo count($this->invoices[Application_Model_Invoice::STATUS_PENDING_APPROVAL]); ?>)
+        </a>
+    </div>
+    <div id="invoices-pendingApproval" class="accordion-body collapse<?php if (count($this->invoices[Application_Model_Invoice::STATUS_PENDING_APPROVAL]) > 0) {echo ' in';} ?>">
+    <div class="accordion-inner">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="span3">Invoice #</th>
+              <th class="span4">Created</th>
+              <th class="span2">Quantity</th>
+              <th class="span2">Total</th>
+              <th class="span1"></th>
+            </tr>
+          </thead>
+          <tbody>
+<?php foreach ($this->invoices[Application_Model_Invoice::STATUS_PENDING_APPROVAL] as $invoice) {
+/* @var $invoice Application_Model_Invoice */ ?>
+            <tr>
+              <td><?php echo $invoice->getSellerInvoiceNumber(); ?></td>
+              <td><?php echo $invoice->getCreatedDate()->toString(); ?></td>
+              <td><?php echo $invoice->getTotalItems(); ?></td>
+              <td>$ <?php echo number_format($invoice->getTotalPrice(),2); ?></td>
+              <td><a href="<?php echo $this->url(array('action'=>'view','id'=>$invoice->getId())); ?>" class="btn">View</a></td>
+            </tr>
+<?php } ?>
+          </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" href="#invoices-approved">
+        Approved for Shipment (<?php echo count($this->invoices[Application_Model_Invoice::STATUS_APPROVED]); ?>)
+        </a>
+    </div>
+    <div id="invoices-approved" class="accordion-body collapse<?php if (count($this->invoices[Application_Model_Invoice::STATUS_APPROVED]) > 0) {echo ' in';} ?>">
+    <div class="accordion-inner">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="span3">Invoice #</th>
+              <th class="span4">Approved</th>
+              <th class="span2">Quantity</th>
+              <th class="span2">Total</th>
+              <th class="span1"></th>
+            </tr>
+          </thead>
+          <tbody>
+<?php foreach ($this->invoices[Application_Model_Invoice::STATUS_APPROVED] as $invoice) {
+/* @var $invoice Application_Model_Invoice */ ?>
+            <tr>
+              <td><?php echo $invoice->getSellerInvoiceNumber(); ?></td>
+              <td><?php echo $invoice->getApprovedDate()->toString(); ?></td>
+              <td><?php echo $invoice->getTotalItems(); ?></td>
+              <td>$ <?php echo number_format($invoice->getTotalPrice(),2); ?></td>
+              <td><a href="<?php echo $this->url(array('action'=>'view','id'=>$invoice->getId())); ?>" class="btn">View</a></td>
+            </tr>
+<?php } ?>
+          </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" href="#invoices-received">
+        Received by Processor (<?php echo count($this->invoices[Application_Model_Invoice::STATUS_RECEIVED]); ?>)
+        </a>
+    </div>
+    <div id="invoices-received" class="accordion-body collapse<?php if (count($this->invoices[Application_Model_Invoice::STATUS_RECEIVED]) > 0) {echo ' in';} ?>">
+    <div class="accordion-inner">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="span3">Invoice #</th>
+              <th class="span4">Received</th>
+              <th class="span2">Quantity</th>
+              <th class="span2">Total</th>
+              <th class="span1"></th>
+            </tr>
+          </thead>
+          <tbody>
+<?php foreach ($this->invoices[Application_Model_Invoice::STATUS_RECEIVED] as $invoice) {
+/* @var $invoice Application_Model_Invoice */ ?>
+            <tr>
+              <td><?php echo $invoice->getSellerInvoiceNumber(); ?></td>
+              <td><?php echo $invoice->getReceivedDate()->toString(); ?></td>
+              <td><?php echo $invoice->getTotalItems(); ?></td>
+              <td>$ <?php echo number_format($invoice->getTotalPrice(),2); ?></td>
+              <td><a href="<?php echo $this->url(array('action'=>'view','id'=>$invoice->getId())); ?>" class="btn">View</a></td>
+            </tr>
+<?php } ?>
+          </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" href="#invoices-processed">
+        Processed (<?php echo count($this->invoices[Application_Model_Invoice::STATUS_PROCESSED]); ?>)
+        </a>
+    </div>
+    <div id="invoices-processed" class="accordion-body collapse<?php if (count($this->invoices[Application_Model_Invoice::STATUS_PROCESSED]) > 0) {echo ' in';} ?>">
+    <div class="accordion-inner">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="span3">Invoice #</th>
+              <th class="span4">Processed</th>
+              <th class="span2">Quantity</th>
+              <th class="span2">Total</th>
+              <th class="span1"></th>
+            </tr>
+          </thead>
+          <tbody>
+<?php foreach ($this->invoices[Application_Model_Invoice::STATUS_PROCESSED] as $invoice) {
+/* @var $invoice Application_Model_Invoice */ ?>
+            <tr>
+              <td><?php echo $invoice->getSellerInvoiceNumber(); ?></td>
+              <td><?php echo $invoice->getProcessedDate(); ?></td>
+              <td><?php echo $invoice->getTotalItems(); ?></td>
+              <td>$ <?php echo number_format($invoice->getTotalPrice(),2); ?></td>
+              <td><a href="<?php echo $this->url(array('action'=>'view','id'=>$invoice->getId())); ?>" class="btn">View</a></td>
+            </tr>
+<?php } ?>
+          </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" href="#invoices-paid">
+        Paid (<?php echo count($this->invoices[Application_Model_Invoice::STATUS_PAID]); ?>)
+        </a>
+    </div>
+    <div id="invoices-paid" class="accordion-body collapse">
+    <div class="accordion-inner">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="span3">Invoice #</th>
+              <th class="span4">Paid</th>
+              <th class="span2">Quantity</th>
+              <th class="span2">Total</th>
+              <th class="span1"></th>
+            </tr>
+          </thead>
+          <tbody>
+<?php foreach ($this->invoices[Application_Model_Invoice::STATUS_PAID] as $invoice) {
+/* @var $invoice Application_Model_Invoice */ ?>
+            <tr>
+              <td><?php echo $invoice->getSellerInvoiceNumber(); ?></td>
+              <td><?php echo $invoice->getPaidDate(); ?></td>
+              <td><?php echo $invoice->getTotalItems(); ?></td>
+              <td>$ <?php echo number_format($invoice->getTotalPrice(),2); ?></td>
+              <td><a href="<?php echo $this->url(array('action'=>'view','id'=>$invoice->getId())); ?>" class="btn">View</a></td>
+            </tr>
+<?php } ?>
+          </tbody>
+        </table>
+    </div>
+    </div>
+</div>
+<div class="accordion-group">
+    <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" href="#invoices-cancelled">
+        Cancelled (<?php echo count($this->invoices[Application_Model_Invoice::STATUS_CANCELLED]); ?>)
+        </a>
+    </div>
+    <div id="invoices-cancelled" class="accordion-body collapse">
+    <div class="accordion-inner">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="span3">Invoice #</th>
+              <th class="span4">Cancelled</th>
+              <th class="span2">Quantity</th>
+              <th class="span2">Total</th>
+              <th class="span1"></th>
+            </tr>
+          </thead>
+          <tbody>
+<?php foreach ($this->invoices[Application_Model_Invoice::STATUS_CANCELLED] as $invoice) {
+/* @var $invoice Application_Model_Invoice */ ?>
+            <tr>
+              <td><?php echo $invoice->getSellerInvoiceNumber(); ?></td>
+              <td><?php echo $invoice->getCancelledDate(); ?></td>
+              <td><?php echo $invoice->getTotalItems(); ?></td>
+              <td>$ <?php echo number_format($invoice->getTotalPrice(),2); ?></td>
+              <td><a href="<?php echo $this->url(array('action'=>'view','id'=>$invoice->getId())); ?>" class="btn">View</a></td>
+            </tr>
+<?php } ?>
+          </tbody>
+        </table>
+    </div>
+    </div>
+</div>

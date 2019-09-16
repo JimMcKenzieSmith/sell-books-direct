@@ -1,0 +1,9 @@
+<h3>Upload Sell List</h3>
+<h4>Step 4 - Finished</h4>
+<div class="alert alert-success">Your purchase order has been successfully created.</div>
+<?php if ($this->user->getSellerStatus() == Application_Model_Seller::STATUS_ACTIVATED_MANUAL) { ?>
+<p>Your account is set to Manual Approval&mdash;please wait for approval BEFORE shipping. Download/view our <a target="_blank" href="https://docs.google.com/document/d/1Bls00ovIGvPXaV7RTerRZ9va0LUFLJFEJm_gaBcCa_Y/edit?usp=sharing">freight collect shipping instructions</a>. And, download/view our <a target="_blank" href="https://docs.google.com/document/d/1wn4k9bbofd3ztTz3bZZv6ubRhya7zdhl74KYEXkeOHE/edit?usp=sharing">chargeback policies</a>.</p>
+<?php } else { ?>
+<p>Your account is set to Auto Approval&mdash;you can ship invoices immediately. Download/view our <a target="_blank" href="https://docs.google.com/document/d/1Bls00ovIGvPXaV7RTerRZ9va0LUFLJFEJm_gaBcCa_Y/edit?usp=sharing">freight collect shipping instructions</a>. And, download/view our <a target="_blank" href="https://docs.google.com/document/d/1wn4k9bbofd3ztTz3bZZv6ubRhya7zdhl74KYEXkeOHE/edit?usp=sharing">chargeback policies</a>.</p>
+<?php } ?>
+<p><a href="<?php echo $this->url(array('action'=>'view','controller' => 'invoice','id'=>$this->id)); ?>" class="btn">View this PO</a></p>

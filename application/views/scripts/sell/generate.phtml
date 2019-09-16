@@ -1,0 +1,57 @@
+<h3>Upload Sell List</h3>
+<h4>Step 3 - Generate Purchase Order</h4>
+<p>Please confirm the prices and quantities below. Need to re-upload? <a href="/sell/upload">Click here to upload a different file</a>.</p>
+<form method="post" action="<?php echo $this->url(); ?>">
+    <fieldset>
+    <table class="table table-hover table-condensed">
+    <thead>
+        <tr>
+            <th class="span2">ISBN13</th>
+            <th class="span1" style="text-align:right;">Sell Quantity</th>
+            <th class="span1" style="text-align:right;">Max Quantity</th>
+            <th class="span2" style="text-align:right;">Price/Book</th>
+            <th class="span2" style="text-align:right;">Line Total</th>
+            <th class="span4"></th>
+        </tr>
+    </thead>
+    <tbody>
+<?php foreach ($this->invoice->getLineItems() as $item) {
+/* @var $item Application_Model_InvoiceItem */ ?>
+        <tr class="<?php echo (isset($this->original[$item->getIsbn13()]['message'])?'info':'success'); ?>">
+            <td><?php echo $item->getIsbn13(); ?></td>
+            <td style="text-align:right;"><input name="<?php echo $item->getIsbn13(); ?>" class="input-mini" type="text" value="<?php echo $item->getQuantity(); ?>"></td>
+            <td style="text-align:right;"><?php echo $this->original[$item->getIsbn13()]['max']; ?></td>
+            <td style="text-align:right;">$ <?php echo number_format($item->getPrice(),2); ?></td>
+            <td style="text-align:right;">$ <?php echo number_format($item->getTotal(),2); ?></td>
+            <td><?php echo (isset($this->original[$item->getIsbn13()]['message'])?$this->original[$item->getIsbn13()]['message']:''); ?></td>
+        </tr>
+<?php } ?>
+        <tr>
+            <td><strong>TOTALS</strong></td>
+            <td style="text-align:right;"><?php echo $this->invoice->getTotalItems(); ?></td>
+            <td style="text-align:right;"></td>
+            <td style="text-align:right;"></td>
+            <td style="text-align:right;">$ <?php echo number_format($this->invoice->getTotalPrice(),2); ?></td>
+            <td></td>
+        </tr>
+    </tbody>
+    </table>
+<?php if (isset($this->message)) { ?>
+    <div class="alert">
+        <?php echo $this->message; ?>
+    </div>
+<?php } ?>
+    <button class="btn" type="submit" name="submit" value="update">Update Quantities</button>
+    </fieldset>
+    <fieldset>
+    <legend id="invoiceDetails">Purchase Order Details</legend>
+    <?php echo $this->form->sellerInvoiceNumber->render(); ?>
+    <span class="help-block">Invoice number is something you create for yourself to track the PO. It must be alpha-numeric and may contain dashes.</span>
+    <?php echo $this->form->shipDate->render(); ?>
+    <div class="form-actions">
+        <p><em>By clicking Confirm, you agree that the inventory submitted above is currently in your possession and ready to ship.</em></p>
+        <button type="submit" name="submit" value="back" class="btn btn-warning">Back</button>
+        <button type="submit" name="submit" value="submit" class="btn btn-primary">Confirm</button>
+    </div>
+    </fieldset>
+</form>

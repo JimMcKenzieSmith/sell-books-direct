@@ -1,0 +1,89 @@
+<h3>Upload Sell List</h3>
+<h4>Step 2 - Confirm Uploaded Data</h4>
+<p>Please confirm in the table below that your data is being read correctly.</p>
+<h5>First 5 rows</h5>
+<table class="table table-hover table-condensed">
+<thead>
+    <tr>
+        <th class="span2">ISBN10/ISBN13</th>
+        <th style="text-align:right;" class="span1">Quantity</th>
+        <th style="text-align:right;" class="span2">Minimum Price/Book</th>
+        <th class="span7"></th>
+    </tr>
+</thead>
+<tbody>
+<?php foreach (array_slice($this->results,0,5) as $result) { ?>
+    <tr class="<?php echo (count($result['errors'])?'error':'success'); ?>">
+        <td><?php echo $result['originalIsbn']; ?></td>
+        <td style="text-align:right;"><?php echo $result['quantity']; ?></td>
+        <td style="text-align:right;"><?php echo $result['price']; ?></td>
+        <td><?php if (count($result['errors']) > 0) { echo implode('<br>', $result['errors']); } ?></td>
+    </tr>
+<?php } ?>
+</tbody>
+</table>
+<h5>Last 5 rows</h5>
+<table class="table table-hover table-condensed">
+<thead>
+    <tr>
+        <th class="span2">ISBN10/ISBN13</th>
+        <th style="text-align:right;" class="span1">Quantity</th>
+        <th style="text-align:right;" class="span2">Minimum Price/Book</th>
+        <th class="span7"></th>
+    </tr>
+</thead>
+<tbody>
+<?php foreach (array_slice($this->results,-5,5) as $result) { ?>
+    <tr class="<?php echo (count($result['errors'])?'error':'success'); ?>">
+        <td><?php echo $result['originalIsbn']; ?></td>
+        <td style="text-align:right;"><?php echo $result['quantity']; ?></td>
+        <td style="text-align:right;"><?php echo $result['price']; ?></td>
+        <td><?php if (count($result['errors']) > 0) { echo implode('<br>', $result['errors']); } ?></td>
+    </tr>
+<?php } ?>
+</tbody>
+</table>
+<?php if ($this->errorCount > 0) { ?>
+<h5>First 10 errors (<a target="_blank" href="<?php echo $this->url(array('action'=>'errors')); ?>">View All</a>)</h5>
+<table class="table table-hover table-condensed">
+<thead>
+    <tr>
+        <th class="span2">ISBN10/ISBN13</th>
+        <th style="text-align:right;" class="span1">Quantity</th>
+        <th style="text-align:right;" class="span2">Minimum Price/Book</th>
+        <th class="span7"></th>
+    </tr>
+</thead>
+<tbody>
+<?php $i = 0;
+foreach ($this->results as $result) {
+if (count($result['errors']) > 0) {
+$i++;?>
+    <tr class="error">
+        <td><?php echo $result['originalIsbn']; ?></td>
+        <td style="text-align:right;"><?php echo $result['quantity']; ?></td>
+        <td style="text-align:right;"><?php echo $result['price']; ?></td>
+        <td><?php echo implode('<br>', $result['errors']); ?></td>
+    </tr>
+<?php }
+if ($i >= 10) {
+    break;
+}
+} ?>
+</tbody>
+</table>
+<div class="alert">
+    <strong>Warning!</strong> If you confirm your data now, any invalid entries will not be included in your sell list.
+</div>
+<?php } ?>
+
+<form method="post" id="form" name="form" action="<?php echo $this->url(array('action'=>'generate')); ?>">
+    <div class="form-actions">
+        <?php if($this->hasMinimumSellPrices): ?>
+        <input style="width:15px; height:15px; margin-bottom: 5px;" type="checkbox" name="filterByMinimumPrice" id="filterByMinimumPrice" value="1" checked/> Filter my results to only show items less than or within $<input style="width: 40px;" type="text" value="10.00" name="filterPriceVariance" id="filterPriceVariance" /> of the buy price. <a target="_blank" href="http://youtu.be/urkAwJHH_bs">Watch a 4 minute video on how filters work</a>.<br />
+        <input style="width:15px; height:15px; margin-bottom: 5px;" type="checkbox" name="filterByMinimumPct" id="filterByMinimumPct" value="1" checked/> Filter my results to only show items less than or within <input style="width: 35px;" type="text" value="15.0" name="filterPctVariance" id="filterPctVariance" />&#37; of the buy price.<span id="filterPriceVarianceError" class="alert-error"></span><span id="filterPctVarianceError" class="alert-error"></span><br />
+        <?php endif; ?>
+        <a href="<?php echo $this->url(array('action'=>'upload')); ?>" class="btn btn-warning">Back</a>
+        <button name="confirm" id="confirm" type="submit" class="btn btn-primary">Confirm</button>
+    </div>
+</form>

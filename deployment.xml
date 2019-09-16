@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<package xmlns="http://www.zend.com/server/deployment-descriptor/1.0" version="1.0">
+    <name>Sell Books Direct</name>
+    <version>
+        <release>0.1.0</release>
+    </version>
+    <appdir>data</appdir>
+    <docroot>data/public</docroot>
+    <dependencies>
+    <required>
+      <php>
+        <min>5.3</min>
+      </php>
+      <zendframework>
+        <min>1.11.12</min>
+      </zendframework>
+    </required>
+  </dependencies>
+</package>

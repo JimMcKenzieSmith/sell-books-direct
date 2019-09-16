@@ -1,0 +1,35 @@
+<h3>Sellers</h3>
+<h4>List All</h4>
+<p class="lead">On this page you can view all the sellers in the system.</p>
+<div class="form-actions">
+    <a href="<?php echo $this->url(array('action'=>'add')); ?>" class="btn btn-primary">Add New Seller</a>
+</div>
+<form action="search">
+<div class="input-append">
+    <input type="text" name="search" placeholder="Seller Name"><button class="btn" type="submit">Search by Seller Name</button>
+</div>
+</form>
+<div class="row-fluid">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="span4">Company Name</th>
+      <th class="span4">Contact Name</th>
+      <th class="span3">Account Status</th>
+      <th class="span1"></th>
+    </tr>
+  </thead>
+  <tbody>
+<?php foreach ($this->sellers as $seller) {
+/* @var $seller Application_Model_Seller */
+?>
+    <tr>
+      <td><?php echo $seller->getName(); ?></td>
+      <td><?php echo $seller->getContactName(); ?></td>
+      <td><?php echo $seller::$sellerStatusTypes[$seller->getSellerStatus()]; ?></td>
+      <td><div class="btn-group"><a href="<?php echo $this->url(array('action'=>'view','id'=>$seller->getId())); ?>" class="btn">View</a><a href="<?php echo $this->url(array('action'=>'edit','id'=>$seller->getId())); ?>" class="btn">Edit</a></div></td>
+    </tr>
+<?php } ?>
+  </tbody>
+</table>
+</div>

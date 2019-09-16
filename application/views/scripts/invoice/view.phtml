@@ -1,0 +1,84 @@
+<?php
+$invoice = $this->invoice;
+/* @var $invoice Application_Model_Invoice */
+?>
+<h3>Viewing Purchase Order</h3>
+<div class="row-fluid">
+<div class="span5">
+<dl class="dl-horizontal">
+  <dt>Invoice #</dt>
+  <dd><?php echo $invoice->getSellerInvoiceNumber(); ?></dd>
+  <dt>Ship date</dt>
+  <dd><?php echo $invoice->getShipDate()->toString(Zend_Date::DATES); ?></dd>
+  <dt>Created on</dt>
+  <dd><?php echo $invoice->getCreatedDate(); ?></dd>
+  <dt>Approved on</dt>
+  <dd><?php echo (($invoice->getApprovedDate())?$invoice->getApprovedDate():'-'); ?></dd>
+  <dt>Received on</dt>
+  <dd><?php echo (($invoice->getReceivedDate())?$invoice->getReceivedDate():'-'); ?></dd>
+  <dt>Processed on</dt>
+  <dd><?php echo (($invoice->getProcessedDate())?$invoice->getProcessedDate():'-'); ?></dd>
+  <dt>Paid on</dt>
+  <dd><?php echo (($invoice->getPaidDate())?$invoice->getPaidDate():'-'); ?></dd>
+  <?php if ($invoice->getInvoiceStatus() == $invoice::STATUS_CANCELLED) { ?>
+  <dt>Cancelled on</dt>
+  <dd><?php echo (($invoice->getCancelledDate())?$invoice->getCancelledDate():'-'); ?></dd>
+  <?php } ?>
+</dl>
+</div>
+<div class="span7">
+<h3 style="color: #000000;"><?php echo $invoice::$_invoiceStatusTypes[$invoice->getInvoiceStatus()]; ?></h3>
+
+<?php if ($this->user->getSellerStatus() == Application_Model_Seller::STATUS_ACTIVATED_MANUAL) { ?>
+<p>Your account is set to Manual Approval&mdash;please wait for approval BEFORE shipping. Download/view our <a target="_blank" href="https://docs.google.com/document/d/1Bls00ovIGvPXaV7RTerRZ9va0LUFLJFEJm_gaBcCa_Y/edit?usp=sharing">freight collect shipping instructions</a>. And, download/view our <a target="_blank" href="https://docs.google.com/document/d/1wn4k9bbofd3ztTz3bZZv6ubRhya7zdhl74KYEXkeOHE/edit?usp=sharing">chargeback policies</a>.</strong></p>
+<?php } else { ?>
+<p>Your account is set to Auto Approval&mdash;you can ship invoices immediately. Download/view our <a target="_blank" href="https://docs.google.com/document/d/1Bls00ovIGvPXaV7RTerRZ9va0LUFLJFEJm_gaBcCa_Y/edit?usp=sharing">freight collect shipping instructions</a>. And, download/view our <a target="_blank" href="https://docs.google.com/document/d/1wn4k9bbofd3ztTz3bZZv6ubRhya7zdhl74KYEXkeOHE/edit?usp=sharing">chargeback policies</a>.</p>
+<?php } ?>
+
+<?php if ($invoice->getInvoiceStatus() == $invoice::STATUS_PENDING_APPROVAL || $invoice->getInvoiceStatus() == $invoice::STATUS_APPROVED) { ?>
+<p><a href="#cancelModal" data-target="#cancelModal" role="button" class="btn btn-danger" data-toggle="modal">Cancel Purchase Order</a></p>
+<?php } ?>
+<p><a href="<?php echo $this->url(array('action'=>'download')); ?>" class="btn">Download as .csv</a></p>
+</div>
+</div>
+&nbsp;
+<table class="table table-striped table-condensed">
+<thead>
+    <tr>
+        <th class="span6">ISBN10/ISBN13</th>
+        <th style="text-align:right;" class="span2">Quantity</th>
+        <th style="text-align:right;" class="span2">Item Price</th>
+        <th style="text-align:right;" class="span2">Line Total</th>
+    </tr>
+</thead>
+<tbody>
+<?php foreach ($invoice->getLineItems() as $item) {
+/* @var $item Application_Model_InvoiceItem */ ?>
+    <tr>
+        <td><?php echo $item->getIsbn13(); ?></td>
+        <td style="text-align:right;"><?php echo $item->getQuantity(); ?></td>
+        <td style="text-align:right;">$ <?php echo number_format($item->getPrice(),2); ?></td>
+        <td style="text-align:right;">$ <?php echo number_format($item->getTotal(),2); ?></td>
+    </tr>
+<?php } ?>
+    <tr>
+        <td><strong>Totals</strong></td>
+        <td style="text-align:right;"><strong><?php echo $invoice->getTotalItems(); ?></strong></td>
+        <td></td>
+        <td style="text-align:right;"><strong>$ <?php echo number_format($invoice->getTotalPrice(),2); ?></strong></td>
+    </tr>
+</tbody>
+</table>
+<div style="display: none;" class="modal hide fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="modalLabel">WARNING!</h3>
+    </div>
+    <div class="modal-body">
+    <p>Your are about to cancel this invoice. This is a permanent action and all book quantities reserved for this invoice will be released.</p>
+    </div>
+    <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Go Back</button>
+    <a class="btn btn-danger" href="<?php echo $this->url(array('action'=>'cancel')); ?>">Cancel Purchase Order</a>
+    </div>
+</div>

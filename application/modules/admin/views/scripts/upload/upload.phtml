@@ -1,0 +1,18 @@
+<h3>Upload Buy List</h3>
+<h4>Step 1 - Upload File</h4>
+<p>Current Amazon Buy List: <?php echo $this->buyList->getUploadDate()->toString(); ?> PST (<a href="<?php echo $this->url(array('id'=>$this->buyList->getId())) . '/amazon-buy-list-' . $this->buyList->getUploadDate()->toString('M-d-y-H-m-s');?>.csv">amazon-buy-list-<?php echo $this->buyList->getUploadDate()->toString('M-d-y-H-m-s'); ?>.csv</a>)</p>
+<p>To begin the buy process, upload your buy list below:</p>
+<form method="post" enctype="multipart/form-data" id="form">
+    <legend>Upload Buy List</legend>
+    <?php echo $this->form; ?>
+    <div class="form-actions">
+        <button name="upload" id="upload"  type="submit" class="btn btn-primary">Upload</button>
+    </div>
+</form>
+<p>The required file format is as follows:</p>
+<pre>"ISBN10/ISBN13","quantity","buy price"</pre>
+<p>Upload tips:</p>
+<ul>
+    <li>The system will automatically detect whether you have added an ISBN10 or ISBN13 code for each line, so you can upload either one.</li>
+    <li>Any "B" ASINs in your list will not validate as an ISBN and will be ignored.</li>
+</ul>

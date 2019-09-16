@@ -1,0 +1,14 @@
+Invoice "<?php echo $this->sellerInvoiceNumber; ?>" from <?php echo $this->companyName; ?>, seller ID <?php echo $this->sellerId; ?>, has been submitted.
+
+Date/Time Submitted: <?php echo $this->dateTimeSubmitted; ?>
+
+Status: <?php echo $this->invoiceStatus; ?>
+
+Quantity: <?php echo number_format($this->totalItems); ?>
+
+Total: $<?php echo number_format($this->totalPrice, 2); ?>
+
+https://www.sellbooksdirect.com/admin/
+
+
+For McKenzie's use: http://spark.mckenziebooks.local/sell-books-direct/new-invoice/invoice-id/<?php echo $this->invoiceId; ?>

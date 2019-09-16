@@ -1,0 +1,29 @@
+<h3>Admin Users</h3>
+<h4>List All</h4>
+<p class="lead">On this page you can view all the admin users in the system.</p>
+<div class="form-actions">
+    <a href="<?php echo $this->url(array('action'=>'add')); ?>" class="btn btn-primary">Add New Admin User</a>
+</div>
+<div class="row-fluid">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="span4">Company Name</th>
+      <th class="span4">Contact Name</th>
+      <th class="span3">Account Type</th>
+      <th class="span2"></th>
+    </tr>
+  </thead>
+  <tbody>
+<?php foreach ($this->users as $user) {
+/* @var $user Application_Model_AdminUser */ ?>
+    <tr>
+      <td><?php echo $user->getName(); ?></td>
+      <td><?php echo $user->getContactName(); ?></td>
+      <td><?php echo $user::$types[$user->getType()]; ?></td>
+      <td><div class="btn-group"><a href="<?php echo $this->url(array('action'=>'view','id'=>$user->getId())); ?>" class="btn">View</a><a href="<?php echo $this->url(array('action'=>'edit','id'=>$user->getId())); ?>" class="btn">Edit</a></div></td>
+    </tr>
+<?php } ?>
+  </tbody>
+</table>
+</div>

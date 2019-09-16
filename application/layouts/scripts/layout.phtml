@@ -1,0 +1,126 @@
+<?php
+/**
+ * Site layout
+ *
+ * @package SellBooksDirect
+ * @subpackage View
+ * @version $Id: 66993af0a4b29d673e1be729172f30a7c7a351c8 $
+ * @author Michael Gooden (michael@bluepointweb.com)
+ * @copyright Copyright (c) 2012 McKenzie Books, Inc. All rights reserved
+ *            (http://www.mckenzieservices.com/)
+ */
+
+// we cannot set this using the resource plugin, so we doin it here
+$this->navigation()->menu()->setUlClass('nav');
+?>
+<?php echo $this->doctype(); ?>
+<html>
+<head>
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headTitle(); ?>
+    <link href="<?php echo $this->baseUrl('css/bootstrap.css?20140203'); ?>" rel="stylesheet">
+    <?php echo $this->headLink(); ?>
+    <?php echo $this->headStyle(); ?>
+    <?php echo $this->headScript(); ?>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+      <div class="brand"><a href="/"><img src="<?php echo $this->baseUrl('img/sell-books-direct-500x.png'); ?>" alt="Sell Books Direct for Amazon.com" /></a>
+          <p style="color: #808080; margin: 0 0 0 10px;">a service provided by McKenzie Books for purchasing used books for resale to Amazon</p>
+      </div>
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <div class="nav-collapse collapse">
+            <?php echo $this->navigation()->menu()->renderMenu(null, array('maxDepth'=>0)); ?>
+            <p class="navbar-text pull-right">
+              <?php if (Zend_Auth::getInstance()->hasIdentity()) { ?>
+              Logged in as <?php echo $this->user->getContactName(); ?> (<?php echo $this->user->getName(); ?>) <a href="<?php echo $this->url(array('controller'=>'login','action'=>'logout')); ?>" class="navbar-link"><em>Logout</em></a>
+              <?php } ?>
+            </p>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span2">
+                <?php echo $this->navigation()->menu()->renderMenu(null, array('minDepth'=>1,'maxDepth'=>1,'ulClass'=>'nav nav-tabs nav-stacked','onlyActiveBranch'=>true,'renderParents'=>false)); ?>
+            </div>
+            <div class="span10">
+                <?php echo $this->navigation()->breadcrumbs()->setRenderInvisible(true); ?>
+<?php
+$messenger = new Zend_Controller_Action_Helper_FlashMessenger();
+$messenger->setNamespace('error');
+foreach ($messenger->getMessages() as $message) {
+?>
+<div class="alert alert-error">
+    <strong>Error:</strong> <?php echo $message ?>
+</div>
+<?php
+}
+if (!isset($this->error)) {
+    $this->error = array();
+}
+foreach ($this->error as $message) {
+    ?>
+<div class="alert alert-error">
+    <strong>Error:</strong> <?php echo $message ?>
+</div>
+<?php
+}
+$messenger->setNamespace('success');
+foreach ($messenger->getMessages() as $message) {
+?>
+<div class="alert alert-success">
+    <?php echo $message ?>
+</div>
+<?php
+}
+if (!isset($this->success)) {
+    $this->success = array();
+}
+foreach ($this->success as $message) {
+    ?>
+<div class="alert alert-success">
+    <?php echo $message ?>
+</div>
+<?php
+}
+$messenger->setNamespace('alert');
+foreach ($messenger->getMessages() as $message) {
+?>
+<div class="alert">
+    <?php echo $message ?>
+</div>
+<?php
+}
+if (!isset($this->alert)) {
+    $this->alert = array();
+}
+foreach ($this->alert as $message) {
+    ?>
+<div class="alert">
+    <?php echo $message ?>
+</div>
+<?php
+}
+$messenger->setNamespace();
+?>
+                <?php echo $this->layout()->content; ?>
+            </div>
+        </div>
+        <hr>
+        <footer>
+            <p><?php if (Zend_Auth::getInstance()->hasIdentity()) { ?><a target="_blank" href="/index/terms">Bulk Buying Terms &amp; Conditions</a> |
+                <a target="_blank" href="/index/contact">Contact Us</a><br /><?php } ?>
+                &copy; 2004-<?php echo date("Y"); ?>, McKenzie Books, Inc.<br />Amazon.com and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
+        </footer>
+    </div>
+    <script src="<?php echo $this->baseUrl('js/bootstrap.js'); ?>"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<h2>Welcome Bulk Booksellers</h2>
+<?php if(strtotime("now") < strtotime("August 9, 2014")) { ?>
+<div class="alert alert-block alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p style="font-size: 18px; line-height: 20px; font-weight: bold;">Our shipping address changed May 9th!</p>
+    <br />All shipments must use our new address:<br /><br />
+    <strong>McKenzie Books<br />
+    21220 NW Amberwood Drive<br />
+    Hillsboro, OR 97124</strong>
+</div>
+<?php } ?>
+<?php if(strtotime("now") >= strtotime("August 9, 2014") && strtotime("now") < strtotime("November 9, 2014")) { ?>
+<div class="alert alert-block">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <p style="font-size: 18px; line-height: 20px; font-weight: bold;">Our shipping address changed May 9th!</p>
+    <br />All shipments must use the following address:<br /><br />
+    <strong>McKenzie Books<br />
+        21220 NW Amberwood Drive<br />
+        Hillsboro, OR 97124</strong>
+</div>
+<?php } ?>
+<p class="lead">On this site you'll find the current bulk pricing for used books and our process for bulk book sales.</p>
+<p>Amazon.com has engaged McKenzie to buy "Good" condition used books in bulk, evaluate their condition, and resell the books to Amazon. Here's how you can participate in this program:</p>
+<ul>
+    <li>Download our <a href="<?php echo $this->url(array('action'=>'buy-list'), 'default'); ?>">Amazon Buy List</a> to compare against your inventory.</li>
+    <li>Upload your Sell List according to the instructions on the <a href="<?php echo $this->url(array('controller'=>'sell')); ?>">Sell List page</a>. This creates a purchase order.</li>
+    <li>You will receive further instructions by email if your purchase order is approved.</li>
+    <li>The expected timeline is to ship the books within 5 business days of purchase order creation and approval.</li>
+    <li>Shipping is always FREE via McKenzie's freight collect account.</li>
+</ul>
+<p><strong>Important Note:</strong> We are only buying books in the "good" condition or better. We will return any books below the "good" condition back to the seller at the seller's expense.</p>
+<p><a class="btn btn-primary" href="/Amazon_Condition_Guidelines_2014.pdf"><i class="icon-camera icon-white"></i> Pictures of Book Condition Requirements</a> </p>
+<dl>
+    <dt>Amazon's "Good" Condition Criteria:</dt>
+    <dd>The book shows minor wear from normal use and is clean in appearance</dd>
+    <dd>The cover is clean with no cuts or tears, with no more than two stickers</dd>
+    <dd>Binding has only minor wear with pages and cover firmly attached</dd>
+    <dd>Item may contain some highlighting, notes or other markings</dd>
+    <dd>The item has no torn or missing pages</dd>
+    <dd>Study guides and workbooks should have no answers filled in</dd>
+    <dd>Item has no personalization (E.g. name written on the cover or page)</dd>
+    <dd>Book shows no signs of water damage</dd>
+    
+    <dt>Books having one or more of the conditions listed below will never be accepted:</dt>
+    <dd>Library copy</dd>
+    <dd>International edition</dd>
+    <dd>Instructor's edition</dd>
+    <dd>Custom edition textbooks (typically has a school name listed)</dd>
+    <dd>Cover is not firmly attached</dd>
+    <dd>Cover has cuts or tears and is not whole</dd>
+    <dd>A la carte or loose-leaf editions</dd>
+    <dd>Water damaged (wavy, swollen or discolored, crinkled, stains, rings)</dd>
+    <dd>Broken spine or binding</dd>
+    <dd>Missing, torn or loose pages</dd>
+    <dd>Missing ISBN on cover and copyright page</dd>
+    <dd>Mold or Mildew</dd>
+    <dd>Blacked out or missing text</dd>
+    <dd>Burns, fire or smoke damage</dd>
+    <dd>Partial set</dd>
+    <dd>Personal information, of a sensitive nature, that cannot be removed</dd>
+    <dd>Reprint, Rebound, or Print on Demand editions</dd>
+    <dd>Sample copy edition</dd>
+    <dd>Staining that is excessive or affects text</dd>
+    <dd>Strong odor of any kind (including musty odor, cigar or cigarette odor)</dd>
+    <dd>Not for resale (or not for sale) anywhere on the cover or inside</dd>
+    <dd>Writing in workbook, practice tests/exams filled out</dd>
+</dl>
+<p>Questions about this program? Please <a href="<?php echo $this->url(array('action'=>'contact')); ?>">contact us</a>.</p>

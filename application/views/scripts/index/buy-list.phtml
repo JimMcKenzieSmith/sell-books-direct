@@ -1,0 +1,3 @@
+<h3>Download Amazon Buy List</h3>
+<p><em>Prices are subject to change and do not guarantee purchase.</em></p>
+<p>Amazon Buy List as of <?php echo $this->buyList->getUploadDate()->toString(); ?> PST <a href="<?php echo $this->url(array('id'=>$this->buyList->getId())) . '/amazon-buy-list-' . $this->buyList->getUploadDate()->toString('M-d-y-H-m-s');?>.csv">amazon-buy-list-<?php echo $this->buyList->getUploadDate()->toString('M-d-y-H-m-s'); ?>.csv</a></p>

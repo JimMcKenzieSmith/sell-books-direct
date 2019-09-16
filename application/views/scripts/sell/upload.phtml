@@ -1,0 +1,22 @@
+<h3>Upload Sell List</h3>
+<h4>Step 1 - Upload File</h4>
+<p>To begin the sell process, upload your sell list below:</p>
+<form method="post" enctype="multipart/form-data" id="form">
+    <legend>Upload Sell List</legend>
+    <?php echo $this->form; ?>
+    <div class="form-actions">
+        <button name="upload" id="upload" type="submit" class="btn btn-primary">Upload</button>
+    </div>
+</form>
+<p>The required comma-separated values (CSV) file format is as follows:</p>
+<pre>ISBN10-or-ISBN13,quantity,[minimum sell price]</pre>
+<h5>Upload Tips:</h5>
+<ul>
+    <li><strong>Limit - </strong>There is currently an upload limit of 100,000 ISBNs. (Large files, that are close to the limit, can take up to one minute to process. Thank you for your patience.)</li>
+    <li><strong>ISBN 10 or 13 - </strong>The system will automatically detect whether you have added an ISBN10 or ISBN13 code for each line, so you can upload either one.</li>
+    <li><strong>Minimum Price - </strong>The third field "minimum sell price" is optional. It is the minimum price you are willing to accept for each copy of that ISBN.</li>
+    <li><strong>No Duplicate ISBNs - </strong>Duplicate ISBNs in your list will be ignored. Please remove duplicates before uploading, and group your quantity by single ISBNs.</li>
+    <li><strong>Avoiding 9.78E+12 Problems - </strong>Excel will sometimes format your ISBN13's in scientific notation. To fix this, select/highlight the ISBN column, right click on the selected area-->Format Cells-->change Category to &quot;Number&quot;-->reduce decimal places to &quot;0&quot;-->OK.</li>
+    <li><strong>Save As CSV - </strong>To create a CSV in Excel, go to Save As-->Save as type: CSV(Comma delimited)(*.csv)-->Save-->OK-->Yes. Now click the "Choose File" button above, and go to where you saved the CSV file.</li>
+    <li><strong>Having Trouble? - </strong><a target="_blank" href="http://www.youtube.com/watch?v=CoirVmpkX-o">Watch a 5 minute video tutorial</a>.</li>
+</ul>

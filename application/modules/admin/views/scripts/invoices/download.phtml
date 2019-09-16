@@ -1,0 +1,6 @@
+ISBN13,Price,Quantity
+<?php
+foreach ($this->items as $item) {
+    $data = array('="' . $item->getIsbn13() . '"', $item->getPrice(), $item->getQuantity());
+    echo implode(',', $data) . "\n";
+}

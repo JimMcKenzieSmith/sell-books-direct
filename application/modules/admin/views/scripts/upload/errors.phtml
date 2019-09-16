@@ -1,0 +1,22 @@
+<h5>All errors in uploaded file</h5>
+<table class="table table-hover table-condensed">
+<thead>
+    <tr>
+        <th class="span2">ISBN10/ISBN13</th>
+        <th style="text-align:right;" class="span1">Quantity</th>
+        <th style="text-align:right;" class="span2">Price/Book</th>
+        <th class="span7"></th>
+    </tr>
+</thead>
+<tbody>
+<?php foreach ($this->results as $result) {
+if (count($result['errors']) > 0) { ?>
+    <tr class="error">
+        <td><?php echo $result['isbn']; ?></td>
+        <td style="text-align:right;"><?php echo $result['quantity']; ?></td>
+        <td style="text-align:right;"><?php echo $result['price']; ?></td>
+        <td><?php echo implode('<br>', $result['errors']); ?></td>
+    </tr>
+<?php } } ?>
+</tbody>
+</table>

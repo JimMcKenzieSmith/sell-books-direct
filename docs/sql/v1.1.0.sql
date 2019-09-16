@@ -1,0 +1,1 @@
+ALTER TABLE `seller` ADD `emailNotify` BOOLEAN NOT NULL DEFAULT '0';

@@ -1,0 +1,9 @@
+<?php
+header("Pragma: public");
+header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+header("Cache-Control: public");
+header("Content-Type: text/csv");
+header("Content-Disposition: attachment; filename=" . $this->filename);
+header("Content-Transfer-Encoding: binary");
+header("Content-Length: " . strlen($this->csv));
+echo $this->csv;?>
